@@ -1,7 +1,35 @@
 # employees/models.py
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import random
 
+
+
+class AppUserManager(BaseUserManager):
+    def create_user(self, user_email, password=None, **extra_fields):
+        if not user_email:
+            raise ValueError('Email requis')
+        user = self.model(user_email=self.normalize_email(user_email), **extra_fields)
+        user.set_password(password)
+        user.access_code = "{:04d}".format(random.randint(0, 9999))  # 4 chiffres
+        user.save(using=self._db)
+        return user
+
+class AppUser(AbstractBaseUser):
+    fname = models.CharField(max_length=50)
+    lname = models.CharField(max_length=50)
+    user_email = models.EmailField(unique=True)
+    role = models.CharField(max_length=50)
+    access_code = models.CharField(max_length=4, blank=True)
+    
+    objects = AppUserManager()
+
+    USERNAME_FIELD = 'user_email'
+    REQUIRED_FIELDS = ['fname', 'lname', 'role']
+
+    def __str__(self):
+        return self.user_email
 
 
 class ITAEmployeeModel(models.Model):

@@ -1,5 +1,27 @@
 from rest_framework import serializers
-from .models import AppUserProfile, EmployeeList, Conge, AssignMission, ITAEmployeeModel,RecruitmentRequest, TestModel
+from .models import AppUserProfile, AppUser, EmployeeList, Conge, AssignMission, ITAEmployeeModel,RecruitmentRequest, TestModel
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
+
+
+class AppUserSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AppUser
+        fields = ['id', 'fname', 'lname', 'user_email', 'role', 'access_code', 'token', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = AppUser.objects.create_user(password=password, **validated_data)
+        return user
+
+    def get_token(self, obj):
+        refresh = RefreshToken.for_user(obj)
+        refresh.set_exp(lifetime=3600)  # 1 heure
+        return str(refresh.access_token)
 
 
 class ITAEMployeeSerializer(serializers.ModelSerializer):
