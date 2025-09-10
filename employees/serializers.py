@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import AppUserProfile, AppUser, EmployeeList, Conge, AssignMission, ITAEmployeeModel,RecruitmentRequest, TestModel
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
-
+from .utils import send_welcome_email
 
 
 class AppUserSerializer(serializers.ModelSerializer):
@@ -16,6 +16,10 @@ class AppUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = AppUser.objects.create_user(password=password, **validated_data)
+
+        # Envoi de l'email de bienvenue
+        send_welcome_email(user_email=user.user_email, fname=user.fname)
+
         return user
 
     def get_token(self, obj):
