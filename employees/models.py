@@ -6,9 +6,10 @@ class Employee(models.Model):
     last_name  = models.CharField(max_length=100)
     email      = models.EmailField(unique=True)
     phone      = models.CharField(max_length=30, blank=True, null=True)
-    position   = models.CharField(max_length=100, blank=True)
+    hire_date = models.DateField(auto_now_add=True)
+    job_title   = models.CharField(max_length=100, blank=True)
     department = models.CharField(max_length=100, blank=True)
-    start_date = models.DateField(blank=True, null=True)
+    #start_date = models.DateField(blank=True, null=True)
     salary     = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
