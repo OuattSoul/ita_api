@@ -23,6 +23,10 @@ class AppUserSerializer(serializers.ModelSerializer):
         refresh.set_exp(lifetime=timedelta(hours=1))  # 1 heure
         return str(refresh.access_token)
 
+class AppUserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppUser
+        fields = ['id', 'fname', 'lname', 'user_email', 'role', 'access_code']
 
 class ITAEMployeeSerializer(serializers.ModelSerializer):
     class Meta:

@@ -6,6 +6,7 @@ import random
 
 
 
+
 class AppUserManager(BaseUserManager):
     def create_user(self, user_email, password=None, **extra_fields):
         if not user_email:
@@ -15,6 +16,8 @@ class AppUserManager(BaseUserManager):
         user.access_code = "{:04d}".format(random.randint(0, 9999))  # 4 chiffres
         user.save(using=self._db)
         return user
+
+
 
 class AppUser(AbstractBaseUser):
     fname = models.CharField(max_length=50)
