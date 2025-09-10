@@ -15,8 +15,8 @@ class Employee(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'employees'   # **force le nom de table à `employees`**
-        ordering = ['-created_at']
+        db_table = 'employees'   # force le nom de table à 'employees'
+        #ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} <{self.email}>"
+        return f"{self.first_name} {self.last_name}"

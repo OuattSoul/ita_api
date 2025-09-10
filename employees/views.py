@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets,permissions
 from .models import Employee
 from .serializers import EmployeeSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -7,5 +7,6 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all().order_by('-created_at')
     serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    #permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
