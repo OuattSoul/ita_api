@@ -1,26 +1,7 @@
 # employees/models.py
 from django.db import models
 
-class Employee(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name  = models.CharField(max_length=100)
-    email      = models.EmailField(unique=True)
-    phone      = models.CharField(max_length=30, blank=True, null=True)
-    hire_date = models.DateField(auto_now_add=True)
-    job_title   = models.CharField(max_length=100, blank=True)
-    department = models.CharField(max_length=100, blank=True)
-    #start_date = models.DateField(blank=True, null=True)
-    salary     = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'employees'   # force le nom de table à 'employees'
-        #ordering = ['-created_at']
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
 
 
 class Conge(models.Model):
@@ -93,3 +74,58 @@ class RecruitmentRequest(models.Model):
     def __str__(self):
         return f"{self.job_title} ({self.job_type})"
 
+
+class Employee(models.Model):
+    # --- Champs personnels ---
+    first_name = models.CharField(max_length=100,default="")
+    last_name = models.CharField(max_length=100,default="")
+    nationality = models.CharField(max_length=100,default="")
+    birth_date = models.DateField(null=True)
+    birth_place = models.CharField(max_length=150,default="")
+    full_address = models.TextField(default="")
+    phone = models.CharField(max_length=20, null=True)
+    email = models.EmailField(unique=True, default="")
+    emergency_contact_name = models.CharField(max_length=150, default="")
+    emergency_contact_phone = models.CharField(max_length=20, default="")
+
+    # --- Champs professionnels ---
+    JOB_TYPE_CHOICES = [
+        ('CDD', 'CDD'),
+        ('CDI', 'CDI'),
+        ('Interim', 'Interim'),
+    ]
+    job_type = models.CharField(max_length=10, choices=JOB_TYPE_CHOICES, default="")
+    diploma = models.CharField(max_length=255, blank=True, null=True)
+    certificate_file = models.FileField(upload_to="certificates/", blank=True, null=True)
+    additional_training = models.TextField(blank=True, null=True)
+    professional_certificate = models.CharField(max_length=255, blank=True, null=True)
+    spoken_languages = models.TextField(blank=True, null=True)
+
+    LANGUAGE_LEVEL_CHOICES = [
+        ('A1', 'A1'),
+        ('B1', 'B1'),
+        ('B2', 'B2'),
+    ]
+    language_level = models.CharField(max_length=2, choices=LANGUAGE_LEVEL_CHOICES, blank=True, null=True)
+
+    # --- Job actuel ---
+    current_position = models.CharField(max_length=150, blank=True, null=True)
+    company = models.CharField(max_length=150, blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    moral_reference = models.CharField(max_length=150, blank=True, null=True)
+    portfolio_file = models.FileField(upload_to="portfolios/", blank=True, null=True)
+
+    # --- Informations contractuelles ---
+    employment_type_field = models.CharField(max_length=10, choices=JOB_TYPE_CHOICES, default="")
+    hire_date = models.DateField(null=True)
+    rattached_service = models.CharField(max_length=150, null=True)
+    occupied_role = models.CharField(max_length=150, null=True)
+    base_salary = models.DecimalField(max_digits=12, decimal_places=2, null=True)
+    bonuses = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    probation_period = models.DateField(blank=True,null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.job_type})"

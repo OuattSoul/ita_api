@@ -28,5 +28,8 @@ class RecruitmentRequestViewSet(viewsets.ModelViewSet):
     serializer_class = RecruitmentRequestSerializer
     permission_classes = [permissions.AllowAny]
 
-
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+    permission_classes = [permissions.AllowAny]
 
