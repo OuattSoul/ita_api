@@ -6,8 +6,8 @@ from django.conf import settings
 class TestModel(models.Model):
     
     nom = models.TextField()
-    prenom = models.DateField()
-    email = models.DateField()
+    prenom = models.TextField()
+    email = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
