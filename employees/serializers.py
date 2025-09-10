@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import AppUserProfile, EmployeeList, Conge, AssignMission,RecruitmentRequest, TestModel
+from .models import AppUserProfile, EmployeeList, Conge, AssignMission, ITAEmployeeModel,RecruitmentRequest, TestModel
 
+
+class ITAEMployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ITAEmployeeModel
+        fields = '__all__'
+ 
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:

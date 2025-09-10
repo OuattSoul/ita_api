@@ -1,5 +1,5 @@
 from rest_framework import routers
-from .views import AppUserProfileViewSet, EmployeeListViewSet,CongeViewSet,AssignMissionViewSet,RecruitmentRequestViewSet, TestViewSet
+from .views import AppUserProfileViewSet, EmployeeListViewSet,CongeViewSet,AssignMissionViewSet, ITAEmployeeView,RecruitmentRequestViewSet, TestViewSet
 from django.urls import path
 
 
@@ -10,6 +10,7 @@ router.register(r'assign-missions', AssignMissionViewSet, basename='assign_missi
 router.register(r'recruitment-requests', RecruitmentRequestViewSet, basename='recruitment_request')
 router.register(r'user-profiles', AppUserProfileViewSet, basename='user-profile')
 router.register(r'test-requests', TestViewSet, basename='test-request')
+router.register(r'ita-employees-list', ITAEmployeeView, basename='ita-employees')
 
 
 urlpatterns = router.urls + [

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets,permissions,generics
-from .models import AppUserProfile, TestModel, EmployeeList, Conge, AssignMission, RecruitmentRequest
-from .serializers import AppUserProfileSerializer, EmployeeSerializer, CongeSerializer, AssignMissionSerializer, RecruitmentRequestSerializer, TestSerializer
+from .models import AppUserProfile, ITAEmployeeModel, TestModel, EmployeeList, Conge, AssignMission, RecruitmentRequest
+from .serializers import AppUserProfileSerializer, EmployeeSerializer, CongeSerializer, AssignMissionSerializer, ITAEMployeeSerializer, RecruitmentRequestSerializer, TestSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
@@ -35,4 +35,8 @@ class AppUserProfileViewSet(viewsets.ModelViewSet):
 class TestViewSet(viewsets.ModelViewSet):
     queryset = TestModel.objects.all()
     serializer_class = TestSerializer
+
+class ITAEmployeeView(viewsets.ModelViewSet):
+    queryset = ITAEmployeeModel.objects.all()
+    serializer_class = ITAEMployeeSerializer
 
