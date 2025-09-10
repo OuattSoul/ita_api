@@ -1,6 +1,6 @@
 # employees/models.py
 from django.db import models
-
+from django.conf import settings
 
 
 
@@ -132,3 +132,31 @@ class EmployeeList(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.job_type})"
+
+
+class AppUserProfile(models.Model):
+    # Lien vers le User principal
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+
+    # Rôles ou permissions spécifiques
+    role = models.CharField(max_length=50, choices=[
+        ('admin', 'Admin'),
+        ('manager', 'Manager'),
+        ('employee', 'Employee'),
+        ('guest', 'Guest')
+    ], default='employee')
+
+    department = models.CharField(max_length=100, null=True, blank=True)
+    location = models.CharField(max_length=100, null=True, blank=True)
+    phone_alternate = models.CharField(max_length=20, null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "user_profiles"
+
+    def __str__(self):
+        return f"{self.user.email} - {self.role}"
+
+
