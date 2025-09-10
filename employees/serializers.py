@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Employee, Conge, AssignMission
+from .models import Employee, Conge, AssignMission,RecruitmentRequest
 
 
 
@@ -19,7 +19,10 @@ class AssignMissionSerializer(serializers.ModelSerializer):
         model = AssignMission
         fields = '__all__'
 
-
+class RecruitmentRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecruitmentRequest
+        fields = '__all__'
 
 
 

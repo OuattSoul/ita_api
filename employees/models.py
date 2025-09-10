@@ -66,3 +66,30 @@ class AssignMission(models.Model):
 
     def __str__(self):
         return f"{self.project} ({self.mission_type})"
+    
+
+class RecruitmentRequest(models.Model):
+    JOB_TYPE_CHOICES = [
+        ('CDI', 'CDI'),
+        ('CDD', 'CDD'),
+        ('Interim', 'Interim'),
+    ]
+
+    STATUS_CHOICES = [
+        ('Normal', 'Normal'),
+        ('Urgent', 'Urgent'),
+        ('Critique', 'Critique'),
+    ]
+
+    job_type = models.CharField(max_length=10, choices=JOB_TYPE_CHOICES)
+    job_title = models.CharField(max_length=255)
+    proposed_salary = models.DecimalField(max_digits=12, decimal_places=2)
+    requesting_service = models.CharField(max_length=255)
+    start_date = models.DateField()
+    message = models.TextField(blank=True, null=True)
+    status_field = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.job_title} ({self.job_type})"
+
