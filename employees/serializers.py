@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import AppUserProfile, AppUser, EmployeeList, Conge, AssignMission, ITAEmployeeModel,RecruitmentRequest, TestModel
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from datetime import timedelta
 
 
 
@@ -20,7 +20,7 @@ class AppUserSerializer(serializers.ModelSerializer):
 
     def get_token(self, obj):
         refresh = RefreshToken.for_user(obj)
-        refresh.set_exp(lifetime=3600)  # 1 heure
+        refresh.set_exp(lifetime=timedelta(hours=1))  # 1 heure
         return str(refresh.access_token)
 
 
