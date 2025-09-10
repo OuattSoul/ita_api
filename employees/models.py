@@ -38,5 +38,8 @@ class Conge(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = "leave_requests"
+
     def __str__(self):
         return f"{self.type_conge} - {self.date_debut} → {self.date_fin}"
