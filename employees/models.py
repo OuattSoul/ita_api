@@ -57,7 +57,7 @@ class ITAEmployeeModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
-        db_table = "ita-employees-list"
+        db_table = "ita_employees_list"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.job_type})"
