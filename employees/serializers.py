@@ -40,6 +40,34 @@ class AppUserListSerializer(serializers.ModelSerializer):
         model = AppUser
         fields = ['id', 'fname', 'lname', 'user_email', 'role', 'access_code']
 
+
+class CodeLoginSerializer(serializers.Serializer):
+    #user_email = serializers.EmailField()
+    access_code = serializers.CharField(max_length=4, write_only=True)
+    token = serializers.CharField(read_only=True)
+
+    def validate(self, data):
+        #email = data.get('user_email')
+        code = data.get('access_code')
+
+        try:
+            user = AppUser.objects.get(access_code=code)
+        except AppUser.DoesNotExist:
+            raise serializers.ValidationError("Utilisateur non trouvé")
+
+        if user.access_code != code:
+            raise serializers.ValidationError("Code d'accès incorrect")
+
+        # Générer un token JWT d'une heure
+        refresh = RefreshToken.for_user(user)
+        refresh.set_exp(lifetime=3600)  # 1 heure
+        data['token'] = str(refresh.access_token)
+        data['user_id'] = user.id
+        data['fname'] = user.fname
+        data['lname'] = user.lname
+        data['role'] = user.role
+        return data
+    
 class ITAEMployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ITAEmployeeModel

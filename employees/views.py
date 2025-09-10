@@ -1,12 +1,20 @@
 from django.shortcuts import render
 from rest_framework import viewsets,permissions,generics
 from .models import AppUser, AppUserProfile, ITAEmployeeModel, TestModel, EmployeeList, Conge, AssignMission, RecruitmentRequest
-from .serializers import AppUserListSerializer, AppUserProfileSerializer, AppUserSerializer, EmployeeSerializer, CongeSerializer, AssignMissionSerializer, ITAEMployeeSerializer, RecruitmentRequestSerializer, TestSerializer
+from .serializers import AppUserListSerializer, AppUserProfileSerializer, AppUserSerializer, CodeLoginSerializer, EmployeeSerializer, CongeSerializer, AssignMissionSerializer, ITAEMployeeSerializer, RecruitmentRequestSerializer, TestSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import generics
+from rest_framework.response import Response
 
 
 
+class CodeLoginUserView(generics.GenericAPIView):
+    serializer_class = CodeLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data)
 
 class RegisterUserView(generics.CreateAPIView):
     queryset = AppUser.objects.all()
