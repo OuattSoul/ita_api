@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 
-class EmployeeViewSet(viewsets.ModelViewSet):
+class EmployeeListViewSet(viewsets.ModelViewSet):
     queryset = EmployeeList.objects.all().order_by('-created_at')
     serializer_class = EmployeeSerializer
     #permission_classes = [IsAuthenticatedOrReadOnly]
