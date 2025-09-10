@@ -1,6 +1,11 @@
 from rest_framework import serializers
-from .models import AppUserProfile, EmployeeList, Conge, AssignMission,RecruitmentRequest
+from .models import AppUserProfile, EmployeeList, Conge, AssignMission,RecruitmentRequest, TestModel
 
+
+class TestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestModel
+        fields = '__all__'
 
 
 class EmployeeSerializer(serializers.ModelSerializer):

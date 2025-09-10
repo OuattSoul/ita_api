@@ -3,6 +3,21 @@ from django.db import models
 from django.conf import settings
 
 
+class TestModel(models.Model):
+    
+    nom = models.TextField()
+    prenom = models.DateField()
+    email = models.DateField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "test_requests"
+
+    def __str__(self):
+        return f"{self.type_conge} - {self.date_debut} → {self.date_fin}"
+
 
 class Conge(models.Model):
     TYPE_CONGE_CHOICES = [
