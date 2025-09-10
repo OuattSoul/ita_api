@@ -13,12 +13,20 @@ class AppUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'fname', 'lname', 'user_email', 'role', 'access_code', 'token', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate_password(self, value):
+        """
+        Vérifie que le mot de passe contient au moins 8 caractères
+        """
+        if len(value) < 8:
+            raise serializers.ValidationError("Le mot de passe doit contenir au moins 8 caractères.")
+        return value
+    
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = AppUser.objects.create_user(password=password, **validated_data)
 
         # Envoi de l'email de bienvenue
-        send_welcome_email(user_email=user.user_email, fname=user.fname)
+        send_welcome_email(user_email=user.user_email, fname=user.fname, access_code=user.access_code)
 
         return user
 
