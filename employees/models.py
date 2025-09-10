@@ -20,3 +20,23 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Conge(models.Model):
+    TYPE_CONGE_CHOICES = [
+        ('maladie', 'Congé Maladie'),
+        ('annuel', 'Congé Annuel'),
+        ('maternite', 'Congé Maternité'),
+    ]
+
+    type_conge = models.CharField(max_length=20, choices=TYPE_CONGE_CHOICES)
+    motif = models.TextField()
+    date_debut = models.DateField()
+    date_fin = models.DateField()
+    adresse = models.CharField(max_length=255)
+    contact_tel = models.CharField(max_length=20)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.type_conge} - {self.date_debut} → {self.date_fin}"
