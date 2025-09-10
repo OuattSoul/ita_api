@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Employee
+from .models import EmployeeList
 
-@admin.register(Employee)
+@admin.register(EmployeeList)
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = (
         'id',

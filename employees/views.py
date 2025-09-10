@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import viewsets,permissions,generics
-from .models import Employee, Conge, AssignMission, RecruitmentRequest
+from .models import EmployeeList, Conge, AssignMission, RecruitmentRequest
 from .serializers import EmployeeSerializer, CongeSerializer, AssignMissionSerializer, RecruitmentRequestSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = Employee.objects.all().order_by('-created_at')
+    queryset = EmployeeList.objects.all().order_by('-created_at')
     serializer_class = EmployeeSerializer
     #permission_classes = [IsAuthenticatedOrReadOnly]
     permission_classes = [permissions.AllowAny]
@@ -28,8 +28,5 @@ class RecruitmentRequestViewSet(viewsets.ModelViewSet):
     serializer_class = RecruitmentRequestSerializer
     permission_classes = [permissions.AllowAny]
 
-class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    permission_classes = [permissions.AllowAny]
+
 

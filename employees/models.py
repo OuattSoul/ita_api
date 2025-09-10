@@ -75,7 +75,7 @@ class RecruitmentRequest(models.Model):
         return f"{self.job_title} ({self.job_type})"
 
 
-class Employee(models.Model):
+class EmployeeList(models.Model):
     # --- Champs personnels ---
     first_name = models.CharField(max_length=100,default="")
     last_name = models.CharField(max_length=100,default="")
@@ -128,7 +128,7 @@ class Employee(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
-        db_table = "employees"
+        db_table = "employees-list"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.job_type})"
