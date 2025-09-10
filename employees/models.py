@@ -46,3 +46,23 @@ class Conge(models.Model):
 
     def __str__(self):
         return f"{self.type_conge} - {self.date_debut} → {self.date_fin}"
+    
+
+class AssignMission(models.Model):
+    URGENCY_LEVEL_CHOICES = [
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+    ]
+
+    project = models.CharField(max_length=255)
+    mission_type = models.CharField(max_length=100)
+    people_count = models.PositiveIntegerField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    urgency_level = models.CharField(max_length=10, choices=URGENCY_LEVEL_CHOICES)
+    special_instructions = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.project} ({self.mission_type})"
