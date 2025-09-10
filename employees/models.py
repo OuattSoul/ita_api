@@ -29,14 +29,16 @@ class Conge(models.Model):
         ('maternite', 'Congé Maternité'),
     ]
 
-    type_conge = models.CharField(max_length=20, choices=TYPE_CONGE_CHOICES)
-    motif = models.TextField()
-    date_debut = models.DateField()
-    date_fin = models.DateField()
-    adresse = models.CharField(max_length=255)
-    contact_tel = models.CharField(max_length=20)
+    employee_id = models.CharField(max_length=20)
+    leave_type = models.CharField(max_length=20, choices=TYPE_CONGE_CHOICES)
+    reason = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    address_during_leave = models.CharField(max_length=255)
+    contact_phone = models.CharField(max_length=20)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "leave_requests"

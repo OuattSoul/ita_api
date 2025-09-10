@@ -10,4 +10,4 @@ class EmployeeSerializer(serializers.ModelSerializer):
 class CongeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conge
-        fields = '__all__'
+        #fields = '__all__'
