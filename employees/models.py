@@ -20,16 +20,21 @@ class AppUserManager(BaseUserManager):
 
 
 class AppUser(AbstractBaseUser):
-    fname = models.CharField(max_length=50)
-    lname = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     user_email = models.EmailField(unique=True)
     role = models.CharField(max_length=50)
     access_code = models.CharField(max_length=4, blank=True)
-    
+    password= models.CharField(max_length=50, null=False, blank=False)
+    created_at = models.DateField(null=False, default="") 
+    updated_at = models.DateField(null=False, default="") 
     objects = AppUserManager()
 
     USERNAME_FIELD = 'user_email'
-    REQUIRED_FIELDS = ['fname', 'lname', 'role']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
+
+    class Meta:
+        db_table = "ita_staff_users"
 
     def __str__(self):
         return self.user_email

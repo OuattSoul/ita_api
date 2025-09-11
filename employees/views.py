@@ -8,6 +8,8 @@ from rest_framework.response import Response
 
 
 
+
+
 class CodeLoginUserView(generics.GenericAPIView):
     serializer_class = CodeLoginSerializer
 
