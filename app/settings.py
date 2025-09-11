@@ -86,10 +86,16 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+
+    'default': dj_database_url.config(
+        default=f"postgresql://postgres_test_altf_user:E99ks80CEhmmtbSJnmMoG1zsJfdh03hO@dpg-d306418dl3ps739rbaa0-a.oregon-postgres.render.com/postgres_test_altf",
+        #default="postgresql://postgres_test_altf_user:E99ks80CEhmmtbSJnmMoG1zsJfdh03hO@dpg-d306418dl3ps739rbaa0-a/postgres_test_altf",
+        conn_max_age=600
+    )
 }
 
 
